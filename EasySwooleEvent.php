@@ -2,6 +2,7 @@
 
 namespace EasySwoole\EasySwoole;
 
+use App\Pool\CreateRedisPool;
 use App\Pool\CreateMysqlPoolForLogDb;
 use App\Pool\CreateMysqlPoolForProjectDb;
 use EasySwoole\EasySwoole\Swoole\EventRegister;
@@ -19,6 +20,9 @@ class EasySwooleEvent implements Event
 
     public static function mainServerCreate(EventRegister $register)
     {
+        //注册redis连接池
+        CreateRedisPool::getInstance()->createRedis();
+
         //注册mysql连接池
         CreateMysqlPoolForProjectDb::getInstance()->createMysql();
         CreateMysqlPoolForLogDb::getInstance()->createMysql();

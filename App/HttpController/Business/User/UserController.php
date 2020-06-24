@@ -8,6 +8,7 @@ use EasySwoole\DDL\DDLBuilder;
 use EasySwoole\DDL\Enum\Character;
 use EasySwoole\DDL\Enum\Engine;
 use EasySwoole\Pool\Manager;
+use EasySwoole\RedisPool\Redis;
 
 class UserController extends BusinessBase
 {
@@ -24,6 +25,23 @@ class UserController extends BusinessBase
     }
 
     public function index()
+    {
+        $obj=Redis::defer('redis');
+
+        $obj->select(0);
+
+        $obj->set('wanghan','胡康菲',200);
+
+        $this->writeJson(200,['胡康菲'],'success');
+    }
+
+
+
+
+
+
+
+    private function mysqlRightWay()
     {
         $sql=DDLBuilder::table('users',function (Table $table)
         {
@@ -59,12 +77,12 @@ class UserController extends BusinessBase
         return true;
     }
 
+    private function redisRightWay()
+    {
+        $obj=Redis::defer('redis');
 
+        $obj->del('wanghan');
 
-
-
-
-
-
-
+        return true;
+    }
 }
