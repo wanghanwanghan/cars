@@ -1,6 +1,6 @@
 <?php
 
-namespace App\HttpController\Business\Test;
+namespace App\HttpController\Business\User;
 
 use App\HttpController\Business\BusinessBase;
 use EasySwoole\DDL\Blueprint\Table;
