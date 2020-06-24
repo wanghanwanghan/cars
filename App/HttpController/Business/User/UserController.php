@@ -25,37 +25,33 @@ class UserController extends BusinessBase
 
     public function index()
     {
-        $this->writeJson(200,['wanghan'],'success');
-
-        return true;
-    }
-
-    public function mysqlTest()
-    {
-        $sql=DDLBuilder::table('session',function (Table $table)
+        $sql=DDLBuilder::table('users',function (Table $table)
         {
-            $table->setTableComment('共享session表')
-                ->setTableEngine(Engine::MEMORY)
+            $table->setTableComment('users表')
+                ->setTableEngine(Engine::INNODB)
                 ->setTableCharset(Character::UTF8MB4_GENERAL_CI);
 
-            $table->colInt('id',11)->setColumnComment('主键')->setIsAutoIncrement()->setIsUnsigned()->setIsPrimaryKey();
-            $table->colVarChar('sid')->setColumnLimit(50)->setIsNotNull()->setColumnComment('sessionID');
-            $table->colVarChar('content')->setColumnLimit(255)->setDefaultValue('')->setColumnComment('sessionID');
-            $table->colInt('updated_at',11)->setIsUnsigned()->setColumnComment('更新时间');
-            $table->indexNormal('sid_index','sid');
+            $table->colInt('id',11)->setColumnComment('用户主键')->setIsAutoIncrement()->setIsUnsigned()->setIsPrimaryKey();
+            $table->colVarChar('username')->setColumnLimit(50)->setDefaultValue('')->setColumnComment('用户名称');
+            $table->colVarChar('password')->setColumnLimit(50)->setDefaultValue('')->setColumnComment('用户密码');
+            $table->colInt('phone',11)->setIsUnsigned()->setIsNotNull()->setColumnComment('手机号');
+            $table->colInt('regTime',11)->setIsUnsigned()->setIsNotNull()->setColumnComment('注册时间');
+            $table->indexNormal('phone_index','phone');
         });
 
         try
         {
-            $obj=Manager::getInstance()->get('project')->getObj();
+            $obj=Manager::getInstance()->get('cars')->getObj();
 
             $obj->rawQuery($sql);
-
-            Manager::getInstance()->get('project')->recycleObj($obj);
 
         }catch (\Throwable $e)
         {
             var_dump($e->getMessage());
+
+        }finally
+        {
+            Manager::getInstance()->get('cars')->recycleObj($obj);
         }
 
         $this->writeJson(200,'ok','success');

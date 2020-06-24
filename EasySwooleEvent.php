@@ -2,6 +2,8 @@
 
 namespace EasySwoole\EasySwoole;
 
+use App\Pool\CreateMysqlPoolForLogDb;
+use App\Pool\CreateMysqlPoolForProjectDb;
 use EasySwoole\EasySwoole\Swoole\EventRegister;
 use EasySwoole\EasySwoole\AbstractInterface\Event;
 use EasySwoole\Http\Request;
@@ -17,6 +19,9 @@ class EasySwooleEvent implements Event
 
     public static function mainServerCreate(EventRegister $register)
     {
+        //注册mysql连接池
+        CreateMysqlPoolForProjectDb::getInstance()->createMysql();
+        CreateMysqlPoolForLogDb::getInstance()->createMysql();
     }
 
     public static function onRequest(Request $request, Response $response): bool
