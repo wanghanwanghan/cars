@@ -26,13 +26,10 @@ class UserController extends BusinessBase
 
     public function index()
     {
-        $obj=Redis::defer('redis');
+        $res[]=\Yaconf::get('local_redis');
+        $res[]=\Yaconf::get('local_mysql');
 
-        $obj->select(0);
-
-        $obj->set('wanghan','胡康菲',200);
-
-        $this->writeJson(200,['胡康菲'],'success');
+        $this->writeJson(200,$res,'success');
     }
 
 
