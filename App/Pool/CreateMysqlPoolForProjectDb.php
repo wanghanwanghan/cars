@@ -20,14 +20,16 @@ class CreateMysqlPoolForProjectDb extends AbstractPool
     {
         parent::__construct(new \EasySwoole\Pool\Config());
 
+        $mysql_ini=\Yaconf::get('local_mysql');
+
         $mysqlConf = new Config([
-            'host'     => '127.0.0.1',
-            'port'     => 63306,
-            'user'     => 'chinaiiss',
-            'password' => 'zbxlbj@2018*()',
+            'host'     => $mysql_ini['host'],
+            'port'     => $mysql_ini['port'],
+            'user'     => $mysql_ini['user'],
+            'password' => $mysql_ini['password'],
             'database' => $this->database,
-            'timeout'  => 5,
-            'charset'  => 'utf8mb4',
+            'timeout'  => $mysql_ini['timeout'],
+            'charset'  => $mysql_ini['charset'],
         ]);
 
         $this->mysqlConf = $mysqlConf;

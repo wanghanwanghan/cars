@@ -14,9 +14,12 @@ class CreateRedisPool
     public function createRedis()
     {
         $conf=new RedisConfig();
-        $conf->setHost('127.0.0.1');
-        $conf->setPort('56379');
-        $conf->setAuth('wanghan123');
+
+        $redis_ini=\Yaconf::get('local_redis');
+
+        $conf->setHost($redis_ini['host']);
+        $conf->setPort($redis_ini['port']);
+        $conf->setAuth($redis_ini['auth']);
 
         $redisPoolConfig=Redis::getInstance()->register('redis',$conf);
         $redisPoolConfig->setMinObjectNum(5);
