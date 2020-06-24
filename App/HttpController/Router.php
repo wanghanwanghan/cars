@@ -12,8 +12,14 @@ class Router extends AbstractRouter
         //全局模式拦截下,路由将只匹配Router.php中的控制器方法响应,将不会执行框架的默认解析
         $this->setGlobalMode(true);
 
+        //跑车小程序路由
+        $this->routeForCars($routeCollector);
+
+        //跑车小程序后台管理系统路由
+        $this->routeForCarsAdmin($routeCollector);
+
         //测试路由
-        $this->routeInTest($routeCollector);
+        $this->routeForTest($routeCollector);
 
 
 
@@ -22,11 +28,25 @@ class Router extends AbstractRouter
 
     }
 
+    //跑车小程序路由
+    private function routeForCars(RouteCollector $routeCollector)
+    {
+        //注册
+        $routeCollector->addRoute(['POST'],'/userReg','/Business/User/UserController/reg');
+        //登录
+        $routeCollector->addRoute(['POST'],'/userLogin','/Business/User/UserController/login');
+    }
+
+    //跑车小程序后台管理系统路由
+    private function routeForCarsAdmin(RouteCollector $routeCollector)
+    {
+
+    }
+
     //测试路由
-    private function routeInTest(RouteCollector $routeCollector)
+    private function routeForTest(RouteCollector $routeCollector)
     {
         $routeCollector->addRoute(['POST'],'/test','Index/test');
-        $routeCollector->addRoute(['POST'],'/test123','/Business/User/UserController/index');
 
         return true;
     }

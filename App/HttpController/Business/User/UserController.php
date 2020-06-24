@@ -24,12 +24,20 @@ class UserController extends BusinessBase
         parent::afterAction($actionName);
     }
 
-    public function index()
+    //用户注册
+    public function reg()
     {
-        $res[]=\Yaconf::get('local_redis');
-        $res[]=\Yaconf::get('local_mysql');
+        $param=$this->request()->getRequestParam();
 
-        $this->writeJson(200,$res,'success');
+        $this->writeJson(200,$param);
+
+        return true;
+    }
+
+    //用户登录
+    public function login()
+    {
+
     }
 
 
