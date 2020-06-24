@@ -1,0 +1,19 @@
+{
+    "name": "wanghanwanghan\/someutils",
+    "description": "2020-06-19 start coding",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "wanghan",
+            "email": "minglongoc@me.com"
+        }
+    ],
+    "require": {
+        "ext-mbstring": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "wanghanwanghan\\someUtils\\": "src"
+        }
+    }
+}
