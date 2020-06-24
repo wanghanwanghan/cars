@@ -25,7 +25,7 @@ class Router extends AbstractRouter
     //测试路由
     private function routeInTest(RouteCollector $routeCollector)
     {
-        $routeCollector->addRoute(['POST'],'/test','index/test');
+        $routeCollector->addRoute(['POST'],'/test','Index/test');
         $routeCollector->addRoute(['POST'],'/test123','/Business/User/UserController/index');
 
         return true;
