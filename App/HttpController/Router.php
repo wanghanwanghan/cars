@@ -31,10 +31,13 @@ class Router extends AbstractRouter
     //跑车小程序路由
     private function routeForCars(RouteCollector $routeCollector)
     {
+        //首屏
+        $routeCollector->addRoute(['POST'],'/v1/home','/Business/Page/PageController/home');
+
         //注册
-        $routeCollector->addRoute(['POST'],'/userReg','/Business/User/UserController/reg');
+        $routeCollector->addRoute(['POST'],'/v1/userReg','/Business/User/UserController/reg');
         //登录
-        $routeCollector->addRoute(['POST'],'/userLogin','/Business/User/UserController/login');
+        $routeCollector->addRoute(['POST'],'/v1/userLogin','/Business/User/UserController/login');
     }
 
     //跑车小程序后台管理系统路由
