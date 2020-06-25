@@ -26,9 +26,13 @@ class PageController extends BusinessBase
         $redisObj->select(0);
         $res=$redisObj->hGetAll('carsConfig');
 
-
-
-
+        foreach ($res as $key => $val)
+        {
+            if (json_decode($val,true) != null)
+            {
+                $res[$key]=json_decode($val,true);
+            }
+        }
 
         $this->writeJson(200,$res);
     }
