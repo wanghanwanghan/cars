@@ -27,6 +27,45 @@ class UserController extends BusinessBase
     //用户注册
     public function reg()
     {
+        $sql=DDLBuilder::table('users',function (Table $table)
+        {
+            $table->setTableComment('users表')
+                ->setTableEngine(Engine::INNODB)
+                ->setTableCharset(Character::UTF8MB4_GENERAL_CI);
+
+            $table->colInt('id',11)->setColumnComment('用户主键')->setIsAutoIncrement()->setIsUnsigned()->setIsPrimaryKey();
+            $table->colVarChar('username')->setColumnLimit(50)->setDefaultValue('')->setColumnComment('用户名称');
+            $table->colVarChar('password')->setColumnLimit(50)->setDefaultValue('')->setColumnComment('用户密码');
+            $table->colInt('phone',11)->setIsUnsigned()->setIsNotNull()->setColumnComment('手机号');
+            $table->colInt('regTime',11)->setIsUnsigned()->setIsNotNull()->setColumnComment('注册时间');
+            $table->indexNormal('phone_index','phone');
+        });
+
+        try
+        {
+            $obj=Manager::getInstance()->get('cars')->getObj();
+
+            $obj->rawQuery($sql);
+
+        }catch (\Throwable $e)
+        {
+            var_dump($e->getMessage());
+
+        }finally
+        {
+            Manager::getInstance()->get('cars')->recycleObj($obj);
+        }
+
+
+
+
+
+
+
+
+
+
+
         $param=$this->request()->getRequestParam();
 
         $this->writeJson(200,$param);
