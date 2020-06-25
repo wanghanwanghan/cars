@@ -27,13 +27,13 @@ class UserController extends BusinessBase
     //用户注册
     public function reg()
     {
-        return true;
+
     }
 
     //用户登录
     public function login()
     {
-        return true;
+
     }
 
 
