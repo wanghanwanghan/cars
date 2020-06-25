@@ -1,6 +1,6 @@
 <?php
 
-namespace App\HttpController\Business\User;
+namespace App\HttpController\Business\Page;
 
 use App\HttpController\Business\BusinessBase;
 use EasySwoole\RedisPool\Redis;
