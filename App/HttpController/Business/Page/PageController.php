@@ -22,6 +22,47 @@ class PageController extends BusinessBase
     //首页
     public function home()
     {
+        $this->carsConfig();
+
+        $redisObj=Redis::defer('local_redis');
+        $redisObj->select(0);
+
+        $res=$redisObj->hGetAll('carsConfig');
+
+        foreach ($res as $key => $val)
+        {
+            if (json_decode($val,true) != null)
+            {
+                $res[$key]=json_decode($val,true);
+            }
+        }
+
+        $this->writeJson(200,$res);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    private function carsConfig()
+    {
         $redisObj=Redis::defer('local_redis');
         $redisObj->select(0);
         $redisObj->hSet('carsConfig','projectName','超酷的名字');
@@ -51,41 +92,25 @@ class PageController extends BusinessBase
         ]));
         $redisObj->hSet('carsConfig','homeModule',json_encode([
             [
-                'title'=>'酷享自驾','subtext1'=>'你想要的','subtext2'=>'都在这里','image'=>'/static/image/homeModule/1.jpg?v=123'
+                'title'=>'酷享自驾','subtext1'=>'你想要的','subtext2'=>'都在这里','image'=>'/static/image/homeModule/1.jpg?v=123','src'=>'/v1/sportsCar',
             ],
             [
-                'title'=>'尊享出行','subtext1'=>'专人专车','subtext2'=>'一应俱全','image'=>'/static/image/homeModule/2.jpg?v=123'
+                'title'=>'尊享出行','subtext1'=>'专人专车','subtext2'=>'一应俱全','image'=>'/static/image/homeModule/2.jpg?v=123','src'=>'/v1/mpv',
             ],
             [
-                'title'=>'极速摩托','subtext1'=>'追求极致','subtext2'=>'畅快淋漓','image'=>'/static/image/homeModule/3.jpg?v=123'
+                'title'=>'极速摩托','subtext1'=>'追求极致','subtext2'=>'畅快淋漓','image'=>'/static/image/homeModule/3.jpg?v=123','src'=>'/v1/motorcycle',
             ],
             [
-                'title'=>'安心托管','subtext1'=>'追求极致','subtext2'=>'畅快淋漓','image'=>'/static/image/homeModule/4.jpg?v=123'
+                'title'=>'安心托管','subtext1'=>'追求极致','subtext2'=>'畅快淋漓','image'=>'/static/image/homeModule/4.jpg?v=123','src'=>'/v1/trusteeship',
             ],
             [
-                'title'=>'精致车源','subtext1'=>'炫酷超跑','subtext2'=>'触手可及','image'=>'/static/image/homeModule/5.jpg?v=123'
+                'title'=>'精致车源','subtext1'=>'炫酷超跑','subtext2'=>'触手可及','image'=>'/static/image/homeModule/5.jpg?v=123','src'=>'/v1/carSource',
             ],
             [
-                'title'=>'超值长租','subtext1'=>'长期租赁','subtext2'=>'更多优惠','image'=>'/static/image/homeModule/6.jpg?v=123'
+                'title'=>'超值长租','subtext1'=>'长期租赁','subtext2'=>'更多优惠','image'=>'/static/image/homeModule/6.jpg?v=123','src'=>'/v1/rental',
             ],
         ]));
 
-        $res=$redisObj->hGetAll('carsConfig');
-
-        foreach ($res as $key => $val)
-        {
-            if (json_decode($val,true) != null)
-            {
-                $res[$key]=json_decode($val,true);
-            }
-        }
-
-        $this->writeJson(200,$res);
+        return true;
     }
-
-
-
-
-
-
 }
