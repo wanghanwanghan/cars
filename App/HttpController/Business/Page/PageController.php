@@ -22,7 +22,7 @@ class PageController extends BusinessBase
     //首页
     public function home()
     {
-        $redisObj=Redis::defer('redis');
+        $redisObj=Redis::defer('local_redis');
         $redisObj->select(0);
         $redisObj->hSet('carsConfig','projectName','超酷的名字');
         $redisObj->hSet('carsConfig','logoRectangle','/static/image/logo/logo-rectangle.jpg?v=123');
