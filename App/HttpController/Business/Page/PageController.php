@@ -44,7 +44,11 @@ class PageController extends BusinessBase
             }
         }
 
-        var_dump($this->request()->getRequestParam());
+        //获取一个上传文件,返回的是一个\EasySwoole\Http\Message\UploadFile的对象
+        $file=$this->request()->getUploadedFile('img');
+        $data=$this->request()->getUploadedFiles();
+
+        var_dump($file,$data);
 
 
         $this->writeJson(200,$res);
