@@ -20,12 +20,6 @@ class Router extends AbstractRouter
 
         //测试路由
         $this->routeForTest($routeCollector);
-
-
-
-
-
-
     }
 
     //跑车小程序路由
@@ -33,6 +27,23 @@ class Router extends AbstractRouter
     {
         //首屏
         $routeCollector->addRoute(['POST'],'/v1/home','/Business/Page/PageController/home');
+
+        //酷享自驾
+        $routeCollector->addRoute(['POST'],'/v1/sportsCar','/Business/Page/PageController/sportsCar');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         //注册
         $routeCollector->addRoute(['POST'],'/v1/userReg','/Business/User/UserController/reg');
