@@ -136,7 +136,7 @@ class PageController extends BusinessBase
             $table->colDecimal('km_ext',5,2)->setIsUnsigned()->setDefaultValue(1)->setColumnComment('公里系数');
             $table->colInt('forfeitPrice',11)->setIsUnsigned()->setDefaultValue(0)->setColumnComment('违章押金');
             $table->colInt('damagePrice',11)->setIsUnsigned()->setDefaultValue(0)->setColumnComment('车损押金');
-            $table->colText('desc')->setColumnComment('描述');
+            $table->colVarChar('desc',255)->setDefaultValue('无')->setColumnComment('描述');
 
 
         });
