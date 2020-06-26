@@ -133,10 +133,10 @@ class PageController extends BusinessBase
             $table->colVarChar('label')->setColumnLimit(100)->setDefaultValue('')->setColumnComment('标签');
             $table->colVarChar('name')->setColumnLimit(50)->setDefaultValue('')->setColumnComment('型号');
             $table->colInt('price',11)->setIsUnsigned()->setDefaultValue(0)->setColumnComment('价格');
-            $table->colDecimal('km_ext',5,2)->setIsUnsigned()->setColumnComment('公里系数');
-            $table->colInt('forfeitPrice',11)->setIsUnsigned()->setDefaultValue(0)->setColumnComment('违章押金');
-            $table->colInt('damagePrice',11)->setIsUnsigned()->setDefaultValue(0)->setColumnComment('车损押金');
-            $table->colVarChar('desc')->setDefaultValue('')->setColumnComment('描述');
+//            $table->colDecimal('km_ext',5,2)->setIsUnsigned()->setDefaultValue(1)->setColumnComment('公里系数');
+//            $table->colInt('forfeitPrice',11)->setIsUnsigned()->setDefaultValue(0)->setColumnComment('违章押金');
+//            $table->colInt('damagePrice',11)->setIsUnsigned()->setDefaultValue(0)->setColumnComment('车损押金');
+//            $table->colVarChar('desc')->setDefaultValue('')->setColumnComment('描述');
 
 
         });
