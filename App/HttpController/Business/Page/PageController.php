@@ -164,7 +164,17 @@ class PageController extends BusinessBase
             $table->indexNormal('id_index','id');
         });
 
-
+        //banner表
+        $sql[]=DDLBuilder::table('banner',function (Table $table)
+        {
+            $table->setTableComment('banner表')->setTableEngine(Engine::INNODB)->setTableCharset(Character::UTF8MB4_GENERAL_CI);
+            $table->colInt('id',11)->setColumnComment('主键')->setIsAutoIncrement()->setIsUnsigned()->setIsPrimaryKey();
+            $table->colVarChar('image')->setColumnLimit(100)->setDefaultValue('')->setColumnComment('图片地址');
+            $table->colTinyInt('isShow')->setIsUnsigned()->setDefaultValue(1)->setColumnComment('是否显示');
+            $table->colTinyInt('level')->setIsUnsigned()->setDefaultValue(0)->setColumnComment('权重');
+            $table->colTinyInt('type')->setIsUnsigned()->setDefaultValue(1)->setColumnComment('1是页面，2是公众号文章');
+            $table->colVarChar('href')->setColumnLimit(255)->setDefaultValue('')->setColumnComment('跳转地址');
+        });
 
 
 
