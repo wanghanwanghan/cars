@@ -136,8 +136,11 @@ class PageController extends BusinessBase
             $table->colDecimal('km_ext',5,2)->setIsUnsigned()->setDefaultValue(1)->setColumnComment('公里系数');
             $table->colInt('forfeitPrice',11)->setIsUnsigned()->setDefaultValue(0)->setColumnComment('违章押金');
             $table->colInt('damagePrice',11)->setIsUnsigned()->setDefaultValue(0)->setColumnComment('车损押金');
-            $table->colVarChar('desc',255)->setDefaultValue('无')->setColumnComment('描述');
-
+            $table->colVarChar('desc',255)->setDefaultValue('')->setColumnComment('描述');
+            $table->colVarChar('license',50)->setDefaultValue('')->setColumnComment('车牌照');
+            $table->colInt('level',11)->setIsUnsigned()->setDefaultValue(0)->setColumnComment('权重');
+            $table->colInt('hot',11)->setIsUnsigned()->setDefaultValue(0)->setColumnComment('热度');
+            $table->colVarChar('city')->setColumnLimit(50)->setDefaultValue('北京')->setColumnComment('所属城市');
 
 
 

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b46b6b1065ae96e6fd7820ef8072da59",
+    "content-hash": "715afe3a10a2c7d911c9448e1f59c409",
     "packages": [
         {
             "name": "dragonmantank/cron-expression",
@@ -509,6 +509,65 @@
                 "swoole"
             ],
             "time": "2020-03-13T07:20:33+00:00"
+        },
+        {
+            "name": "easyswoole/orm",
+            "version": "1.4.12",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/easy-swoole/orm.git",
+                "reference": "42a48275ae370e53d880d29918640e3e3a831335"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/easy-swoole/orm/zipball/42a48275ae370e53d880d29918640e3e3a831335",
+                "reference": "42a48275ae370e53d880d29918640e3e3a831335",
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
+            },
+            "require": {
+                "easyswoole/component": "^2.0",
+                "easyswoole/ddl": "^1.0",
+                "easyswoole/mysqli": "^2.0",
+                "easyswoole/pool": "^1.0",
+                "ext-json": "*",
+                "ext-swoole": ">=4.4.7",
+                "php": ">=7.1.0"
+            },
+            "require-dev": {
+                "easyswoole/phpunit": "^1.0",
+                "easyswoole/swoole-ide-helper": "^1.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "EasySwoole\\ORM\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "YF",
+                    "email": "291323003@qq.com"
+                }
+            ],
+            "description": "php stander lib",
+            "homepage": "https://www.easyswoole.com/",
+            "keywords": [
+                "async",
+                "easyswoole",
+                "framework",
+                "swoole"
+            ],
+            "time": "2020-06-17T04:21:20+00:00"
         },
         {
             "name": "easyswoole/pool",

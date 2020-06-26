@@ -522,6 +522,67 @@
         ]
     },
     {
+        "name": "easyswoole/orm",
+        "version": "1.4.12",
+        "version_normalized": "1.4.12.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/easy-swoole/orm.git",
+            "reference": "42a48275ae370e53d880d29918640e3e3a831335"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/easy-swoole/orm/zipball/42a48275ae370e53d880d29918640e3e3a831335",
+            "reference": "42a48275ae370e53d880d29918640e3e3a831335",
+            "shasum": "",
+            "mirrors": [
+                {
+                    "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
+                    "preferred": true
+                }
+            ]
+        },
+        "require": {
+            "easyswoole/component": "^2.0",
+            "easyswoole/ddl": "^1.0",
+            "easyswoole/mysqli": "^2.0",
+            "easyswoole/pool": "^1.0",
+            "ext-json": "*",
+            "ext-swoole": ">=4.4.7",
+            "php": ">=7.1.0"
+        },
+        "require-dev": {
+            "easyswoole/phpunit": "^1.0",
+            "easyswoole/swoole-ide-helper": "^1.0"
+        },
+        "time": "2020-06-17T04:21:20+00:00",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "EasySwoole\\ORM\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "Apache-2.0"
+        ],
+        "authors": [
+            {
+                "name": "YF",
+                "email": "291323003@qq.com"
+            }
+        ],
+        "description": "php stander lib",
+        "homepage": "https://www.easyswoole.com/",
+        "keywords": [
+            "async",
+            "easyswoole",
+            "framework",
+            "swoole"
+        ]
+    },
+    {
         "name": "easyswoole/pool",
         "version": "1.0.11",
         "version_normalized": "1.0.11.0",
