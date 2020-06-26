@@ -181,7 +181,7 @@ class PageController extends BusinessBase
 
             }catch (\Throwable $e)
             {
-
+                var_dump($e->getMessage());
             }finally
             {
                 Manager::getInstance()->get('cars')->recycleObj($obj);
