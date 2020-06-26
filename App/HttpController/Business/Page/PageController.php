@@ -44,7 +44,7 @@ class PageController extends BusinessBase
             }
         }
 
-
+        var_dump($this->request()->getRequestParam());
 
 
         $this->writeJson(200,$res);
