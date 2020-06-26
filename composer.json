@@ -11,7 +11,8 @@
         "easyswoole/ddl": "^1.0",
         "easyswoole/http-client": "^1.3",
         "nesbot/carbon": "^2.35",
-        "easyswoole/orm": "^1.4"
+        "easyswoole/orm": "^1.4",
+        "yansongda/pay": "^2.9"
     },
     "autoload": {
         "psr-4": {
