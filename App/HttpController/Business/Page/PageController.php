@@ -48,9 +48,6 @@ class PageController extends BusinessBase
         $file=$this->request()->getUploadedFile('img');
         $data=$this->request()->getUploadedFiles();
 
-        var_dump($file,$data);
-
-
         $this->writeJson(200,$res);
 
         return true;
