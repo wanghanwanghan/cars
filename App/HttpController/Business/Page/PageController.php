@@ -87,7 +87,7 @@ class PageController extends BusinessBase
             $table->colInt('id',11)->setColumnComment('用户主键')->setIsAutoIncrement()->setIsUnsigned()->setIsPrimaryKey();
             $table->colVarChar('username')->setColumnLimit(50)->setDefaultValue('')->setColumnComment('用户名称');
             $table->colVarChar('password')->setColumnLimit(50)->setDefaultValue('')->setColumnComment('用户密码');
-            $table->colInt('phone',11)->setIsUnsigned()->setIsNotNull()->setColumnComment('手机号');
+            $table->colInt('phone',12)->setIsUnsigned()->setIsNotNull()->setColumnComment('手机号');
             $table->colInt('regTime',11)->setIsUnsigned()->setIsNotNull()->setColumnComment('注册时间');
             $table->colVarChar('city')->setColumnLimit(50)->setDefaultValue('北京')->setColumnComment('主要用车城市');
             $table->colTinyInt('carLicense')->setIsUnsigned()->setDefaultValue(0)->setColumnComment('汽车驾照是否通过审核');
@@ -137,6 +137,9 @@ class PageController extends BusinessBase
             $table->colInt('forfeitPrice',11)->setIsUnsigned()->setDefaultValue(0)->setColumnComment('违章押金');
             $table->colInt('damagePrice',11)->setIsUnsigned()->setDefaultValue(0)->setColumnComment('车损押金');
             $table->colVarChar('desc',255)->setDefaultValue('无')->setColumnComment('描述');
+
+
+
 
 
         });
