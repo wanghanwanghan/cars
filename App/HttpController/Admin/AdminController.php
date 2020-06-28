@@ -32,7 +32,7 @@ class AdminController extends Index
         $res=$builder->where('username',$req['username'])->get('admin_users',1);
 
 
-        $this->writeJson(200,$res);
+        $this->writeJson(200,[$req,$res]);
 
         return true;
     }
