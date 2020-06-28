@@ -35,8 +35,9 @@ class AdminController extends Index
 
             $res=$obj->queryBuilder()
                 ->where('username',$req['username'])
-                ->get('admin_users',1)
-                ->execBuilder();
+                ->get('admin_users',1);
+
+            $res=$obj->execBuilder();
 
             $res=current($res);
 
