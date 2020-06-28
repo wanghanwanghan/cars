@@ -67,12 +67,7 @@ class AdminController extends Index
 
         foreach ($data as $one)
         {
-            $tmp[]=$one->getTempName();
-            $tmp[]=$one->getStream();
-            $tmp[]=$one->getSize();
-            $tmp[]=$one->getError();
-            $tmp[]=$one->getClientFilename();
-            $tmp[]=$one->getClientMediaType();
+            $tmp[]=$one->moveTo(BASEPATH);
         }
 
         $this->writeJson(200,$tmp);
