@@ -32,11 +32,11 @@ class AdminController extends Index
         {
             $obj=Manager::getInstance()->get('cars')->getObj();
 
-            $obj->queryBuilder()->where('username',$req['username'])->get('admin_users');
+            $obj->queryBuilder()->where('username',$req['username'])->get('admin_users',1);
 
             $res=$obj->execBuilder();
 
-            $res=[];
+            $res=current($res);
 
         }catch (\Throwable $e)
         {
@@ -46,9 +46,9 @@ class AdminController extends Index
             Manager::getInstance()->get('cars')->recycleObj($obj);
         }
 
+        $req['password']==$res['password'] ? $code=200 : $code=201;
 
-
-        $this->writeJson(200,[$req,$res]);
+        $this->writeJson($code,$res);
 
         return true;
     }
