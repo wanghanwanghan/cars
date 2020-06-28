@@ -9,6 +9,7 @@ use EasySwoole\DDL\Enum\Character;
 use EasySwoole\DDL\Enum\Engine;
 use EasySwoole\Pool\Manager;
 use EasySwoole\RedisPool\Redis;
+use wanghanwanghan\someUtils\control;
 
 class PageController extends BusinessBase
 {
@@ -27,28 +28,14 @@ class PageController extends BusinessBase
     //首页
     public function home()
     {
-        $this->carsConfig();
-
         $this->createTable();
 
-        $redisObj=Redis::defer('local_redis');
-        $redisObj->select(0);
-
-        $res=$redisObj->hGetAll('carsConfig');
-
-        foreach ($res as $key => $val)
-        {
-            if (json_decode($val,true) != null)
-            {
-                $res[$key]=json_decode($val,true);
-            }
-        }
 
         //获取一个上传文件,返回的是一个\EasySwoole\Http\Message\UploadFile的对象
         $file=$this->request()->getUploadedFile('img');
         $data=$this->request()->getUploadedFiles();
 
-        $this->writeJson(200,$res);
+        $this->writeJson(200,control::getUuid());
 
         return true;
     }
@@ -180,6 +167,20 @@ class PageController extends BusinessBase
             $table->colVarChar('href')->setColumnLimit(255)->setDefaultValue('')->setColumnComment('跳转地址');
         });
 
+        //================================ admin ================================
+
+        //后台用户表
+        $sql[]=DDLBuilder::table('admin_users',function (Table $table)
+        {
+            $table->setTableComment('后台用户表')->setTableEngine(Engine::INNODB)->setTableCharset(Character::UTF8MB4_GENERAL_CI);
+            $table->colInt('id',11)->setColumnComment('主键')->setIsAutoIncrement()->setIsUnsigned()->setIsPrimaryKey();
+            $table->colVarChar('username')->setColumnLimit(50)->setDefaultValue('')->setColumnComment('用户名');
+            $table->colVarChar('password')->setColumnLimit(50)->setDefaultValue('')->setColumnComment('密码');
+            $table->colVarChar('phone',11)->setIsNotNull()->setColumnComment('手机号');
+        });
+
+
+
 
 
 
@@ -204,61 +205,6 @@ class PageController extends BusinessBase
                 Manager::getInstance()->get('cars')->recycleObj($obj);
             }
         }
-
-        $this->writeJson(200,'ok','success');
-
-        return true;
-    }
-
-    private function carsConfig()
-    {
-        $redisObj=Redis::defer('local_redis');
-        $redisObj->select(0);
-        $redisObj->hSet('carsConfig','projectName','超酷的名字');
-        $redisObj->hSet('carsConfig','logoRectangle','/static/image/logo/logo-rectangle.jpg?v=123');
-        $redisObj->hSet('carsConfig','hotTel','4008-517-517');
-        $redisObj->hSet('carsConfig','homeBanner',json_encode([
-            [
-                'src'=>'/static/image/banner/banner1.jpg?v=123',
-                'href'=>'/static/image/banner/banner1.jpg?v=123',
-                'type'=>'image',
-            ],
-            [
-                'src'=>'/static/image/banner/banner2.jpg?v=123',
-                'href'=>'/static/image/banner/banner2.jpg?v=123',
-                'type'=>'image',
-            ],
-            [
-                'src'=>'/static/image/banner/banner3.jpg?v=123',
-                'href'=>'/static/image/banner/banner3.jpg?v=123',
-                'type'=>'image',
-            ],
-            [
-                'src'=>'/static/image/banner/banner4.jpg?v=123',
-                'href'=>'/static/image/banner/banner4.jpg?v=123',
-                'type'=>'image',
-            ],
-        ]));
-        $redisObj->hSet('carsConfig','homeModule',json_encode([
-            [
-                'title'=>'酷享自驾','subtext1'=>'你想要的','subtext2'=>'都在这里','image'=>'/static/image/homeModule/1.jpg?v=123','href'=>'/v1/sportsCar',
-            ],
-            [
-                'title'=>'尊享出行','subtext1'=>'专人专车','subtext2'=>'一应俱全','image'=>'/static/image/homeModule/2.jpg?v=123','href'=>'/v1/mpv',
-            ],
-            [
-                'title'=>'极速摩托','subtext1'=>'追求极致','subtext2'=>'畅快淋漓','image'=>'/static/image/homeModule/3.jpg?v=123','href'=>'/v1/motorcycle',
-            ],
-            [
-                'title'=>'安心托管','subtext1'=>'追求极致','subtext2'=>'畅快淋漓','image'=>'/static/image/homeModule/4.jpg?v=123','href'=>'/v1/trusteeship',
-            ],
-            [
-                'title'=>'精致车源','subtext1'=>'炫酷超跑','subtext2'=>'触手可及','image'=>'/static/image/homeModule/5.jpg?v=123','href'=>'/v1/carSource',
-            ],
-            [
-                'title'=>'超值长租','subtext1'=>'长期租赁','subtext2'=>'更多优惠','image'=>'/static/image/homeModule/6.jpg?v=123','href'=>'/v1/rental',
-            ],
-        ]));
 
         return true;
     }
