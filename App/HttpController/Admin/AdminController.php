@@ -47,7 +47,7 @@ class AdminController extends Index
 
             $res=$obj->execBuilder();
 
-            $res=current($res);
+            var_dump($res);
 
         }catch (\Throwable $e)
         {
