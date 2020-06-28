@@ -74,14 +74,14 @@ class AdminController extends Index
 
             $ext=".{$ext[1]}";
 
-            $filename=control::getUuid(12).$ext;
+            $filename='/static/image/carImg/'.control::getUuid(12).$ext;
 
-            $path=BASEPATH.'static/image/carImg/'.$filename;
+            $path=BASEPATH.$filename;
 
             $one->moveTo($path);
         }
 
-        $this->writeJson(200,$path);
+        $this->writeJson(200,$filename);
 
         return true;
     }

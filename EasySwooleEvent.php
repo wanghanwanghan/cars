@@ -21,7 +21,7 @@ class EasySwooleEvent implements Event
     public static function mainServerCreate(EventRegister $register)
     {
         //最外层目录
-        define('BASEPATH',__DIR__.DIRECTORY_SEPARATOR);
+        define('BASEPATH',__DIR__);
 
         //注册redis连接池
         CreateRedisPool::getInstance()->createRedis();
