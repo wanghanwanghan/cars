@@ -69,7 +69,7 @@ class AdminController extends Index
 
         var_dump($req,$data);
 
-        $this->writeJson(200,[$req,$data]);
+        $this->writeJson(200,[$req,$data,__DIR__,BASEPATH]);
 
         return true;
     }

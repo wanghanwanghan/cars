@@ -20,12 +20,18 @@ class EasySwooleEvent implements Event
 
     public static function mainServerCreate(EventRegister $register)
     {
+        define('BASEPATH',__DIR__);
+
         //注册redis连接池
         CreateRedisPool::getInstance()->createRedis();
 
         //注册mysql连接池
         CreateMysqlPoolForProjectDb::getInstance()->createMysql();
         CreateMysqlPoolForLogDb::getInstance()->createMysql();
+
+
+
+
     }
 
     public static function onRequest(Request $request, Response $response): bool
