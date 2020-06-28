@@ -5,6 +5,7 @@ namespace App\HttpController\Admin;
 use App\HttpController\Index;
 use EasySwoole\Mysqli\QueryBuilder;
 use EasySwoole\Pool\Manager;
+use wanghanwanghan\someUtils\control;
 
 class AdminController extends Index
 {
@@ -67,10 +68,20 @@ class AdminController extends Index
 
         foreach ($data as $one)
         {
-            $tmp[]=$one->moveTo(BASEPATH);
+            $ext=$one->getClientMediaType();
+
+            $ext=explode('/',$ext);
+
+            $ext=".{$ext[1]}";
+
+            $filename=control::getUuid(12).$ext;
+
+            $path=BASEPATH.'static/image/carImg/'.$filename;
+
+            $one->moveTo($path);
         }
 
-        $this->writeJson(200,$tmp);
+        $this->writeJson(200,$path);
 
         return true;
     }
