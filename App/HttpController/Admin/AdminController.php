@@ -36,6 +36,8 @@ class AdminController extends Index
 
             $res=$obj->execBuilder();
 
+            $res=[];
+
         }catch (\Throwable $e)
         {
             $res=[];
