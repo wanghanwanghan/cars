@@ -67,9 +67,9 @@ class AdminController extends Index
 
         $data=$this->request()->getUploadedFiles();
 
-        var_dump($data);
+        var_dump($req,$data);
 
-        $this->writeJson(200,$data);
+        $this->writeJson(200,[$req,$data]);
 
         return true;
     }
