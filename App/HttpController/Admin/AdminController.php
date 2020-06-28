@@ -63,13 +63,19 @@ class AdminController extends Index
     //上传图片
     public function uploadImg()
     {
-        $req=$this->request()->getRequestParam();
-
         $data=$this->request()->getUploadedFiles();
 
-        var_dump($req,$data);
+        foreach ($data as $one)
+        {
+            $tmp[]=$one->getTempName();
+            $tmp[]=$one->getStream();
+            $tmp[]=$one->getSize();
+            $tmp[]=$one->getError();
+            $tmp[]=$one->getClientFilename();
+            $tmp[]=$one->getClientMediaType();
+        }
 
-        $this->writeJson(200,[$req,$data,__DIR__,BASEPATH]);
+        $this->writeJson(200,$tmp);
 
         return true;
     }
