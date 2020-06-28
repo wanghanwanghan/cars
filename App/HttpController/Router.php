@@ -54,6 +54,12 @@ class Router extends AbstractRouter
     //跑车小程序后台管理系统路由
     private function routeForCarsAdmin(RouteCollector $routeCollector)
     {
+        //登录
+        $routeCollector->addRoute(['POST'],'/admin/login','/Admin/AdminController/login');
+
+
+
+
 
     }
 
