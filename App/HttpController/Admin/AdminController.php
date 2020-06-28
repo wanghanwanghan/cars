@@ -57,7 +57,10 @@ class AdminController extends Index
             Manager::getInstance()->get('cars')->recycleObj($obj);
         }
 
-        $this->writeJson(200,$res);
+        $tmp=[];
+        control::traverseMenu($res,$tmp);
+
+        $this->writeJson(200,$tmp);
 
 
 
