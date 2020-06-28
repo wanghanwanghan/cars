@@ -29,8 +29,7 @@ class AdminController extends Index
 
         $builder=new QueryBuilder();
 
-        $res=$builder->where('username',$req['username'])->get('admin_users',1);
-
+        $res=$builder->where('username',$req['username'])->get('admin_users',1)->execBuilder();
 
         $this->writeJson(200,[$req,$res]);
 
