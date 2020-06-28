@@ -42,7 +42,7 @@ class AdminController extends Index
             $obj=Manager::getInstance()->get('cars')->getObj();
 
             $res=$obj->queryBuilder()
-                ->fields('id','pid','name')
+                ->fields('id,pid,name')
                 ->get('china_area');
 
             $res=$obj->execBuilder();
