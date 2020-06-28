@@ -57,7 +57,7 @@ class AdminController extends Index
             Manager::getInstance()->get('cars')->recycleObj($obj);
         }
 
-        $this->writeJson(200,$res);exit;
+        $this->writeJson(200,$res);
 
 
 
@@ -68,33 +68,7 @@ class AdminController extends Index
 
 
 
-        try
-        {
-            $obj=Manager::getInstance()->get('cars')->getObj();
 
-            $res=$obj->queryBuilder()
-                ->where('username',$req['username'])
-                ->get('admin_users',1);
-
-            $res=$obj->execBuilder();
-
-            $res=current($res);
-
-        }catch (\Throwable $e)
-        {
-            $res=[];
-        }finally
-        {
-            Manager::getInstance()->get('cars')->recycleObj($obj);
-        }
-
-        if ($req['password']==$res['password'])
-        {
-            $this->writeJson(200,$res);
-        }else
-        {
-            $this->writeJson(201,[]);
-        }
 
         return true;
     }
