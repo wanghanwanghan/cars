@@ -24,6 +24,7 @@ class AdminController extends Index
         parent::afterAction($actionName);
     }
 
+    //后台登录
     public function login()
     {
         $req=$this->request()->getRequestParam();
@@ -32,9 +33,10 @@ class AdminController extends Index
         {
             $obj=Manager::getInstance()->get('cars')->getObj();
 
-            $obj->queryBuilder()->where('username',$req['username'])->get('admin_users',1);
-
-            $res=$obj->execBuilder();
+            $res=$obj->queryBuilder()
+                ->where('username',$req['username'])
+                ->get('admin_users',1)
+                ->execBuilder();
 
             $res=current($res);
 
@@ -56,6 +58,15 @@ class AdminController extends Index
 
         return true;
     }
+
+
+
+
+
+
+
+
+
 
 
 }
