@@ -46,9 +46,13 @@ class AdminController extends Index
             Manager::getInstance()->get('cars')->recycleObj($obj);
         }
 
-        $req['password']==$res['password'] ? $code=200 : $code=201;
-
-        $this->writeJson($code,$res);
+        if ($req['password']==$res['password'])
+        {
+            $this->writeJson(200,$res);
+        }else
+        {
+            $this->writeJson(201,[]);
+        }
 
         return true;
     }
