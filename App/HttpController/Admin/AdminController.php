@@ -28,15 +28,11 @@ class AdminController extends Index
     {
         $req=$this->request()->getRequestParam();
 
-        $builder=new QueryBuilder();
-
-        $oneSql=$builder->where('username',$req['username'])->get('admin_users',1);
-
         try
         {
             $obj=Manager::getInstance()->get('cars')->getObj();
 
-            $res=$obj->rawQuery($oneSql);
+            $res=$obj->queryBuilder()->where('username',$req['username'])->get('admin_users',1);
 
         }catch (\Throwable $e)
         {
