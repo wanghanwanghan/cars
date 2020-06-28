@@ -32,7 +32,10 @@ class AdminController extends Index
         {
             $obj=Manager::getInstance()->get('cars')->getObj();
 
-            $res=$obj->queryBuilder()->where('username',$req['username'])->get('admin_users',1);
+            $obj->queryBuilder()->where('username',$req['username'])->get('admin_users',1);
+
+            $res=$obj->execBuilder();
+
 
         }catch (\Throwable $e)
         {
