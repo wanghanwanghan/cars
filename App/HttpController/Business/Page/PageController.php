@@ -35,7 +35,7 @@ class PageController extends BusinessBase
         $file=$this->request()->getUploadedFile('img');
         $data=$this->request()->getUploadedFiles();
 
-        $this->writeJson(200,control::getUuid());
+        $this->writeJson(200,['uuid'=>control::getUuid()],'小超垃圾');
 
         return true;
     }
