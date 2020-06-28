@@ -60,6 +60,20 @@ class AdminController extends Index
         return true;
     }
 
+    //上传图片
+    public function uploadImg()
+    {
+        $req=$this->request()->getRequestParam();
+
+        $data=$this->request()->getUploadedFiles();
+
+        var_dump($data);
+
+        $this->writeJson(200,$data);
+
+        return true;
+    }
+
 
 
 

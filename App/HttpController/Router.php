@@ -57,6 +57,9 @@ class Router extends AbstractRouter
         //登录
         $routeCollector->addRoute(['POST'],'/admin/login','/Admin/AdminController/login');
 
+        //图片上传
+        $routeCollector->addRoute(['POST'],'/admin/uploadImg','/Admin/AdminController/uploadImg');
+
 
 
 
