@@ -140,6 +140,7 @@ class AdminController extends Index
         {
             //post是录入车辆信息
             $data=[
+                'images'=>$this->request()->getRequestParam('images') ?? '无',//车辆图片
                 'carType'=>$this->request()->getRequestParam('carType') ?? 1,//车辆类型
                 'carBrand'=>$this->request()->getRequestParam('carBrand') ?? 1,//品牌
                 'carModel'=>$this->request()->getRequestParam('carModel') ?? '无',//型号
@@ -173,26 +174,17 @@ class AdminController extends Index
 
             if ($res==true)
             {
-                $insertId=$obj->mysqlClient()->insert_id;
-
-                $images=$this->request()->getRequestParam('images');//图片地址
-
-
-
-
-
-
-
-
+                $insertId=[$obj->mysqlClient()->insert_id];
                 $code=200;
                 $msg=null;
             }else
             {
+                $insertId=[];
                 $code=201;
                 $msg='数据入库错误';
             }
 
-            $this->writeJson($code,[json_decode($images,true)],$msg);
+            $this->writeJson($code,$insertId,$msg);
         }
 
         Manager::getInstance()->get('cars')->recycleObj($obj);
@@ -254,6 +246,7 @@ class AdminController extends Index
         {
             $table->setTableComment('车辆信息表')->setTableEngine(Engine::INNODB)->setTableCharset(Character::UTF8MB4_GENERAL_CI);
             $table->colInt('id',11)->setIsAutoIncrement()->setIsUnsigned()->setColumnComment('主键')->setIsPrimaryKey();
+            $table->colText('images')->setColumnComment('图片');
             $table->colInt('carType')->setIsUnsigned()->setColumnComment('车辆类型表id');
             $table->colInt('carBrand')->setIsUnsigned()->setColumnComment('车辆品牌表id');
             $table->colVarChar('carModel')->setColumnLimit(50)->setColumnComment('车辆型号');
@@ -280,16 +273,6 @@ class AdminController extends Index
             $table->colInt('rentMin')->setIsUnsigned()->setColumnComment('最短天数');
             $table->colInt('rentMax')->setIsUnsigned()->setColumnComment('最长天数');
         });
-
-        //车辆图片表
-        $sql[]=DDLBuilder::table('carImage',function (Table $table)
-        {
-            $table->setTableComment('车辆图片表')->setTableEngine(Engine::INNODB)->setTableCharset(Character::UTF8MB4_GENERAL_CI);
-            $table->colInt('id',11)->setIsAutoIncrement()->setIsUnsigned()->setColumnComment('主键')->setIsPrimaryKey();
-            $table->colInt('cid')->setIsUnsigned()->setColumnComment('车辆主键');
-            $table->colVarChar('imageUrl')->setColumnLimit(255)->setColumnComment('图片地址');
-        });
-
 
 
 
