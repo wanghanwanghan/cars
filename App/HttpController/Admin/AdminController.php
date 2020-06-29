@@ -172,8 +172,11 @@ class AdminController extends Index
             $res=$obj->execBuilder();
 
             $caonima=[
-                $this->request()->getRequestParam(),
-                $this->json()
+                'formData'=>$this->request()->getRequestParam(),
+                'json'=>$this->json(),
+                'post'=>$this->request()->getParsedBody(),
+                'get'=>$this->request()->getQueryParams(),
+                'header'=>$this->request()->getHeaders()
             ];
 
             if ($res==true)
