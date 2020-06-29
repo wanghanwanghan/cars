@@ -129,6 +129,8 @@ class AdminController extends Index
                 'carBelong'=>$carBelong,
             ]);
 
+            return true;
+
             var_dump(time());
 
         }else
