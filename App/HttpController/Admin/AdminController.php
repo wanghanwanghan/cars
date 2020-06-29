@@ -171,9 +171,7 @@ class AdminController extends Index
 
             $res=$obj->execBuilder();
 
-            $obj->insert_id;
-
-            $this->writeJson(200,[$res,$obj]);
+            $this->writeJson(200,[$res,$obj->mysqlClient()->insert_id]);
         }
 
         Manager::getInstance()->get('cars')->recycleObj($obj);
