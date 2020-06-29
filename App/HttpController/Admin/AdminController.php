@@ -173,11 +173,7 @@ class AdminController extends Index
 
             if ($res==true)
             {
-                $insertId=[
-                    $this->request()->getRequestParam(),
-                    $this->request()->getBody(),
-                    $this->request()->getSwooleRequest()->rawContent()
-                ];
+                $insertId=$this->request()->getRequestParam();
                 $code=200;
                 $msg=null;
             }else
