@@ -7,7 +7,6 @@ use EasySwoole\DDL\Blueprint\Table;
 use EasySwoole\DDL\DDLBuilder;
 use EasySwoole\DDL\Enum\Character;
 use EasySwoole\DDL\Enum\Engine;
-use EasySwoole\Mysqli\QueryBuilder;
 use EasySwoole\Pool\Manager;
 use wanghanwanghan\someUtils\control;
 
@@ -97,7 +96,7 @@ class AdminController extends Index
     {
         $method=$this->request()->getMethod();
 
-        $obj=Manager::getInstance()->get('cats')->getObj();
+        $obj=Manager::getInstance()->get('cars')->getObj();
 
         //get是拿页面要展示的信息
         if ($method==='GET')
