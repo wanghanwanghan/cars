@@ -141,7 +141,7 @@ class AdminController extends Index
 
 
 
-            $this->writeJson(200,$this->request()->getRequestParam());
+            $this->writeJson(200,$this->request()->getRequestParam('username'));
         }
 
         Manager::getInstance()->get('cars')->recycleObj($obj);
