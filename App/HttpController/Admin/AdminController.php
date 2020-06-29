@@ -97,7 +97,35 @@ class AdminController extends Index
     {
         $method=$this->request()->getMethod();
 
-        $this->writeJson(200,$method);
+        $obj=Manager::getInstance()->get('cats')->getObj();
+
+        //get是拿页面要展示的信息
+        if ($method==='GET')
+        {
+            $carType=$obj->queryBuilder()->get('carType');
+            $carBrand=$obj->queryBuilder()->get('carBrand');
+            $carLicenseType=$obj->queryBuilder()->get('carLicenseType');
+            $china_area=$obj->queryBuilder()->get('china_area');
+            $carBelong=$obj->queryBuilder()->get('carBelong');
+
+
+
+
+
+
+
+            Manager::getInstance()->get('cars')->recycleObj($obj);
+
+        }else
+        {
+            //post是录入车辆信息
+
+
+
+
+        }
+
+        $this->writeJson(200,[$carType,$carBrand,$carLicenseType,$china_area,$carBelong]);
     }
 
 
