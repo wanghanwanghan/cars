@@ -32,6 +32,8 @@ class AdminController extends Index
     //后台登录
     public function login()
     {
+        $this->createTable();
+
         $req=$this->request()->getRequestParam();
 
         try
