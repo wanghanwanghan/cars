@@ -83,10 +83,18 @@ class AdminController extends Index
 
             $path=BASEPATH.$filename;
 
-            $one->moveTo($path);
+            if ($one->moveTo($path))
+            {
+                $code=200;
+                $msg=null;
+            }else
+            {
+                $code=201;
+                $msg='保存图片失败';
+            }
         }
 
-        $this->writeJson(200,$filename);
+        $this->writeJson($code,$filename,$msg);
 
         return true;
     }
@@ -119,8 +127,6 @@ class AdminController extends Index
             $obj->queryBuilder()->get('carBelong');
             $carBelong=$obj->execBuilder();
 
-            Manager::getInstance()->get('cars')->recycleObj($obj);
-
             $this->writeJson(200,[
                 'carType'=>$carType,
                 'carBrand'=>$carBrand,
@@ -129,18 +135,16 @@ class AdminController extends Index
                 'carBelong'=>$carBelong,
             ]);
 
-            return true;
-
-            var_dump(time());
-
         }else
         {
             //post是录入车辆信息
 
 
 
-
+            $this->writeJson(200,$this->request()->getRequestParam());
         }
+
+        Manager::getInstance()->get('cars')->recycleObj($obj);
     }
 
 
