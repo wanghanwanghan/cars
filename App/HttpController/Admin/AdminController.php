@@ -101,11 +101,20 @@ class AdminController extends Index
         //get是拿页面要展示的信息
         if ($method==='GET')
         {
-            $carType=$obj->queryBuilder()->get('carType');
-            $carBrand=$obj->queryBuilder()->get('carBrand');
-            $carLicenseType=$obj->queryBuilder()->get('carLicenseType');
-            $china_area=$obj->queryBuilder()->get('china_area');
-            $carBelong=$obj->queryBuilder()->get('carBelong');
+            $obj->queryBuilder()->get('carType');
+            $carType=$obj->execBuilder();
+
+            $obj->queryBuilder()->get('carBrand');
+            $carBrand=$obj->execBuilder();
+
+            $obj->queryBuilder()->get('carLicenseType');
+            $carLicenseType=$obj->execBuilder();
+
+            $obj->queryBuilder()->get('china_area');
+            $china_area=$obj->execBuilder();
+
+            $obj->queryBuilder()->get('carBelong');
+            $carBelong=$obj->execBuilder();
 
 
 
