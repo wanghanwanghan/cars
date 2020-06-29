@@ -274,6 +274,21 @@ class AdminController extends Index
             $table->colInt('rentMax')->setIsUnsigned()->setColumnComment('最长天数');
         });
 
+        //优惠券表
+        $sql[]=DDLBuilder::table('coupon',function (Table $table)
+        {
+            $table->setTableComment('coupon表')->setTableEngine(Engine::INNODB)->setTableCharset(Character::UTF8MB4_GENERAL_CI);
+            $table->colInt('id',11)->setColumnComment('主键')->setIsAutoIncrement()->setIsUnsigned()->setIsPrimaryKey();
+            $table->colVarChar('name')->setColumnLimit(50)->setColumnComment('名称');
+            $table->colInt('carType')->setIsUnsigned()->setColumnComment('哪种车可以用');
+            $table->colInt('needMoney')->setIsUnsigned()->setColumnComment('多少钱可以用');
+            $table->colVarChar('discountWay')->setColumnLimit(50)->setColumnComment('减免方式');
+            $table->colInt('discount')->setIsUnsigned()->setColumnComment('折扣减免是按%，金额减免是直接减钱');
+            $table->colInt('expireStart')->setIsUnsigned()->setColumnComment('有效期开始');
+            $table->colInt('expireStop')->setIsUnsigned()->setColumnComment('有效期结束');
+            $table->colVarChar('phone')->setColumnLimit(50)->setColumnComment('手机');
+            $table->colInt('createdAt')->setIsUnsigned()->setColumnComment('创建时间');
+        });
 
 
 
