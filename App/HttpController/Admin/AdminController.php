@@ -277,7 +277,7 @@ class AdminController extends Index
         //优惠券表
         $sql[]=DDLBuilder::table('coupon',function (Table $table)
         {
-            $table->setTableComment('coupon表')->setTableEngine(Engine::INNODB)->setTableCharset(Character::UTF8MB4_GENERAL_CI);
+            $table->setTableComment('优惠券表')->setTableEngine(Engine::INNODB)->setTableCharset(Character::UTF8MB4_GENERAL_CI);
             $table->colInt('id',11)->setColumnComment('主键')->setIsAutoIncrement()->setIsUnsigned()->setIsPrimaryKey();
             $table->colVarChar('name')->setColumnLimit(50)->setColumnComment('名称');
             $table->colInt('carType')->setIsUnsigned()->setColumnComment('哪种车可以用');
