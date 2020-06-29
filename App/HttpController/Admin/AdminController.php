@@ -139,13 +139,16 @@ class AdminController extends Index
         {
             //post是录入车辆信息
             //车辆类型
-            $carType=$this->request()->getRequestParam('username') ?? 1;
+            $carType=$this->request()->getRequestParam('carType') ?? 1;
+            $carBrand=$this->request()->getRequestParam('carBrand') ?? 1;
+            $carModel=$this->request()->getRequestParam('carModel') ?? '无';
+            $engine=$this->request()->getRequestParam('engine') ?? 1;
 
 
 
 
 
-            $this->writeJson(200,[$carType]);
+            $this->writeJson(200,[]);
         }
 
         Manager::getInstance()->get('cars')->recycleObj($obj);
@@ -210,7 +213,7 @@ class AdminController extends Index
             $table->colInt('carType')->setIsUnsigned()->setColumnComment('车辆类型表id');
             $table->colInt('carBrand')->setIsUnsigned()->setColumnComment('车辆品牌表id');
             $table->colVarChar('carModel')->setColumnLimit(50)->setColumnComment('车辆型号');
-            $table->colTinyInt('engine')->setIsUnsigned()->setColumnComment('排量');
+            $table->colDecimal('engine',5,2)->setIsUnsigned()->setColumnComment('排量');
             $table->colInt('year')->setIsUnsigned()->setColumnComment('年份');
             $table->colInt('carLicenseType')->setIsUnsigned()->setColumnComment('车辆牌照类型表id');
             $table->colInt('carBelongCity')->setIsUnsigned()->setColumnComment('城市表id');
