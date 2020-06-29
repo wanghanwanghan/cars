@@ -60,6 +60,10 @@ class Router extends AbstractRouter
         //图片上传
         $routeCollector->addRoute(['POST'],'/admin/uploadImg','/Admin/AdminController/uploadImg');
 
+        //录入跑车信息页面
+        $routeCollector->addRoute(['GET','POST'],'/admin/create/sportsCar','/Admin/AdminController/createSportsCar');
+
+
 
 
 

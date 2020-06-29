@@ -92,6 +92,13 @@ class AdminController extends Index
         return true;
     }
 
+    //录入车辆信息
+    public function createSportsCar()
+    {
+        $method=$this->request()->getMethod();
+
+        $this->writeJson(200,$method);
+    }
 
 
 
