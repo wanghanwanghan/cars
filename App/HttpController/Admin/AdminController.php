@@ -142,7 +142,7 @@ class AdminController extends Index
 
             $data=[
                 'images'=>$requestData['images'] ?? '无',//车辆图片
-                'carType'=>$requestData['carType']('') ?? 1,//车辆类型
+                'carType'=>$requestData['carType'] ?? 1,//车辆类型
                 'carBrand'=>$requestData['carBrand'] ?? 1,//品牌
                 'carModel'=>$requestData['carModel'] ?? '无',//型号
                 'engine'=>$requestData['engine'] ?? 1.0,//排量
