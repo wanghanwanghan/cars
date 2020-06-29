@@ -9,6 +9,7 @@ use EasySwoole\DDL\Enum\Character;
 use EasySwoole\DDL\Enum\Engine;
 use EasySwoole\Pool\Manager;
 use wanghanwanghan\someUtils\control;
+use function Couchbase\defaultDecoder;
 
 class AdminController extends Index
 {
@@ -138,63 +139,39 @@ class AdminController extends Index
         }else
         {
             //post是录入车辆信息
-            //车辆类型
-            $carType=$this->request()->getRequestParam('carType') ?? 1;
-            //品牌
-            $carBrand=$this->request()->getRequestParam('carBrand') ?? 1;
-            //型号
-            $carModel=$this->request()->getRequestParam('carModel') ?? '无';
-            //排量
-            $engine=$this->request()->getRequestParam('engine') ?? 1.0;
-            //年份
-            $year=$this->request()->getRequestParam('year') ?? 2020;
-            //牌照
-            $carLicenseType=$this->request()->getRequestParam('carLicenseType') ?? 1;
-            //所属城市
-            $carBelongCity=$this->request()->getRequestParam('carBelongCity') ?? 1;
-            //操作模式
-            $operateType=$this->request()->getRequestParam('carBelongCity') ?? '自动挡';
-            //座位个数
-            $seatNum=$this->request()->getRequestParam('seatNum') ?? 2;
-            //驱动方式
-            $driveType=$this->request()->getRequestParam('driveType') ?? '四驱';
-            //是否敞篷
-            $isRoadster=$this->request()->getRequestParam('isRoadster') ?? '否';
-            //外观颜色
-            $carColor=$this->request()->getRequestParam('carColor') ?? '钻石白';
-            //内饰颜色
-            $insideColor=$this->request()->getRequestParam('insideColor') ?? '尊贵棕';
-            //日租价格
-            $dayPrice=$this->request()->getRequestParam('dayPrice') ?? 5000;
-            //日租折扣
-            $dayDiscount=$this->request()->getRequestParam('dayDiscount') ?? 10;
-            //出行价格
-            $goPrice=$this->request()->getRequestParam('goPrice') ?? 3000;
-            //出行折扣
-            $goDiscount=$this->request()->getRequestParam('goDiscount') ?? 10;
-            //每公里价格
-            $kilPrice=$this->request()->getRequestParam('kilPrice') ?? 20.0;
-            //库存剩余
-            $carNun=$this->request()->getRequestParam('carNun') ?? 20;
-            //所属车行
-            $carBelong=$this->request()->getRequestParam('carBelong') ?? 1;
-            //车损押金
-            $damagePrice=$this->request()->getRequestParam('damagePrice') ?? 20000;
-            //违章押金
-            $forfeitPrice=$this->request()->getRequestParam('forfeitPrice') ?? 2000;
-            //是否参加活动
-            $isActivities=$this->request()->getRequestParam('isActivities') ?? '否';
-            //最小天数
-            $rentMin=$this->request()->getRequestParam('rentMin') ?? 1;
-            //最大天数
-            $rentMax=$this->request()->getRequestParam('rentMax') ?? 9999;
+            $data=[
+                'carType'=>$this->request()->getRequestParam('carType') ?? 1,//车辆类型
+                'carBrand'=>$this->request()->getRequestParam('carBrand') ?? 1,//品牌
+                'carModel'=>$this->request()->getRequestParam('carModel') ?? '无',//型号
+                'engine'=>$this->request()->getRequestParam('engine') ?? 1.0,//排量
+                'year'=>$this->request()->getRequestParam('year') ?? 2020,//年份
+                'carLicenseType'=>$this->request()->getRequestParam('carLicenseType') ?? 1,//牌照
+                'carBelongCity'=>$this->request()->getRequestParam('carBelongCity') ?? 1,//所属城市
+                'operateType'=>$this->request()->getRequestParam('carBelongCity') ?? '自动挡',//操作模式
+                'seatNum'=>$this->request()->getRequestParam('seatNum') ?? 2,//座位个数
+                'driveType'=>$this->request()->getRequestParam('driveType') ?? '四驱',//驱动方式
+                'isRoadster'=>$this->request()->getRequestParam('isRoadster') ?? '否',//是否敞
+                'carColor'=>$this->request()->getRequestParam('carColor') ?? '钻石白',//外观颜色
+                'insideColor'=>$this->request()->getRequestParam('insideColor') ?? '尊贵棕',//内饰颜色
+                'dayPrice'=>$this->request()->getRequestParam('dayPrice') ?? 5000,//日租价格
+                'dayDiscount'=>$this->request()->getRequestParam('dayDiscount') ?? 10,//日租折扣
+                'goPrice'=>$this->request()->getRequestParam('goPrice') ?? 3000,//出行价格
+                'goDiscount'=>$this->request()->getRequestParam('goDiscount') ?? 10,//出行折扣
+                'kilPrice'=>$this->request()->getRequestParam('kilPrice') ?? 20.0,//每公里价格
+                'carNun'=>$this->request()->getRequestParam('carNun') ?? 20,//库存剩余
+                'carBelong'=>$this->request()->getRequestParam('carBelong') ?? 1,//所属车行
+                'damagePrice'=>$this->request()->getRequestParam('damagePrice') ?? 20000,//车损押金
+                'forfeitPrice'=>$this->request()->getRequestParam('forfeitPrice') ?? 2000,//违章押金
+                'isActivities'=>$this->request()->getRequestParam('isActivities') ?? '否',//是否参加活动
+                'rentMin'=>$this->request()->getRequestParam('rentMin') ?? 1,//最小天数
+                'rentMax'=>$this->request()->getRequestParam('rentMax') ?? 9999,//最大天数
+            ];
 
+            $obj->queryBuilder()->insert('carInfo',$data);
+            $res=$obj->execBuilder();
+            $obj->mysqlClient()->insert_id;
 
-
-
-
-
-            $this->writeJson(200,$this->request()->getRequestParam('images'));
+            $this->writeJson(200,[$res,$obj]);
         }
 
         Manager::getInstance()->get('cars')->recycleObj($obj);
