@@ -138,40 +138,42 @@ class AdminController extends Index
         }else
         {
             //post是录入车辆信息
-            $requestData=$this->json();
+//            $requestData=$this->json();
+//
+//            $data=[
+//                'images'=>$requestData['images'] ?? '无',//车辆图片
+//                'carType'=>$requestData['carType'] ?? 1,//车辆类型
+//                'carBrand'=>$requestData['carBrand'] ?? 1,//品牌
+//                'carModel'=>$requestData['carModel'] ?? '无',//型号
+//                'engine'=>$requestData['engine'] ?? 1.0,//排量
+//                'year'=>$requestData['year'] ?? 2020,//年份
+//                'carLicenseType'=>$requestData['carLicenseType'] ?? 1,//牌照
+//                'carBelongCity'=>$requestData['carBelongCity'] ?? 1,//所属城市
+//                'operateType'=>$requestData['carBelongCity'] ?? '自动挡',//操作模式
+//                'seatNum'=>$requestData['seatNum'] ?? 2,//座位个数
+//                'driveType'=>$requestData['driveType'] ?? '四驱',//驱动方式
+//                'isRoadster'=>$requestData['isRoadster'] ?? '否',//是否敞
+//                'carColor'=>$requestData['carColor'] ?? '钻石白',//外观颜色
+//                'insideColor'=>$requestData['insideColor'] ?? '尊贵棕',//内饰颜色
+//                'dayPrice'=>$requestData['dayPrice'] ?? 5000,//日租价格
+//                'dayDiscount'=>$requestData['dayDiscount'] ?? 10,//日租折扣
+//                'goPrice'=>$requestData['goPrice'] ?? 3000,//出行价格
+//                'goDiscount'=>$requestData['goDiscount'] ?? 10,//出行折扣
+//                'kilPrice'=>$requestData['kilPrice'] ?? 20.0,//每公里价格
+//                'carNum'=>$requestData['carNum'] ?? 20,//库存剩余
+//                'carBelong'=>$requestData['carBelong'] ?? 1,//所属车行
+//                'damagePrice'=>$requestData['damagePrice'] ?? 20000,//车损押金
+//                'forfeitPrice'=>$requestData['forfeitPrice'] ?? 2000,//违章押金
+//                'isActivities'=>$requestData['isActivities'] ?? '否',//是否参加活动
+//                'rentMin'=>$requestData['rentMin'] ?? 1,//最小天数
+//                'rentMax'=>$requestData['rentMax'] ?? 9999,//最大天数
+//            ];
+//
+//            $obj->queryBuilder()->insert('carInfo',$data);
+//
+//            $res=$obj->execBuilder();
 
-            $data=[
-                'images'=>$requestData['images'] ?? '无',//车辆图片
-                'carType'=>$requestData['carType'] ?? 1,//车辆类型
-                'carBrand'=>$requestData['carBrand'] ?? 1,//品牌
-                'carModel'=>$requestData['carModel'] ?? '无',//型号
-                'engine'=>$requestData['engine'] ?? 1.0,//排量
-                'year'=>$requestData['year'] ?? 2020,//年份
-                'carLicenseType'=>$requestData['carLicenseType'] ?? 1,//牌照
-                'carBelongCity'=>$requestData['carBelongCity'] ?? 1,//所属城市
-                'operateType'=>$requestData['carBelongCity'] ?? '自动挡',//操作模式
-                'seatNum'=>$requestData['seatNum'] ?? 2,//座位个数
-                'driveType'=>$requestData['driveType'] ?? '四驱',//驱动方式
-                'isRoadster'=>$requestData['isRoadster'] ?? '否',//是否敞
-                'carColor'=>$requestData['carColor'] ?? '钻石白',//外观颜色
-                'insideColor'=>$requestData['insideColor'] ?? '尊贵棕',//内饰颜色
-                'dayPrice'=>$requestData['dayPrice'] ?? 5000,//日租价格
-                'dayDiscount'=>$requestData['dayDiscount'] ?? 10,//日租折扣
-                'goPrice'=>$requestData['goPrice'] ?? 3000,//出行价格
-                'goDiscount'=>$requestData['goDiscount'] ?? 10,//出行折扣
-                'kilPrice'=>$requestData['kilPrice'] ?? 20.0,//每公里价格
-                'carNum'=>$requestData['carNum'] ?? 20,//库存剩余
-                'carBelong'=>$requestData['carBelong'] ?? 1,//所属车行
-                'damagePrice'=>$requestData['damagePrice'] ?? 20000,//车损押金
-                'forfeitPrice'=>$requestData['forfeitPrice'] ?? 2000,//违章押金
-                'isActivities'=>$requestData['isActivities'] ?? '否',//是否参加活动
-                'rentMin'=>$requestData['rentMin'] ?? 1,//最小天数
-                'rentMax'=>$requestData['rentMax'] ?? 9999,//最大天数
-            ];
-
-            $obj->queryBuilder()->insert('carInfo',$data);
-
-            $res=$obj->execBuilder();
+            $res=0;
 
             if ($res==true)
             {
