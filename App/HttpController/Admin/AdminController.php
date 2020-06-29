@@ -149,15 +149,15 @@ class AdminController extends Index
                 'year'=>$requestData['year'] ?? 2020,//年份
                 'carLicenseType'=>$requestData['carLicenseType'] ?? 1,//牌照
                 'carBelongCity'=>$requestData['carBelongCity'] ?? 1,//所属城市
-                'operateType'=>$requestData['carBelongCity']?? '自动挡',//操作模式
+                'operateType'=>$requestData['carBelongCity'] ?? '自动挡',//操作模式
                 'seatNum'=>$requestData['seatNum'] ?? 2,//座位个数
                 'driveType'=>$requestData['driveType'] ?? '四驱',//驱动方式
                 'isRoadster'=>$requestData['isRoadster'] ?? '否',//是否敞
                 'carColor'=>$requestData['carColor'] ?? '钻石白',//外观颜色
                 'insideColor'=>$requestData['insideColor'] ?? '尊贵棕',//内饰颜色
-                'dayPrice'=>$requestData['dayPrice']?? 5000,//日租价格
-                'dayDiscount'=>$requestData['dayDiscount']?? 10,//日租折扣
-                'goPrice'=>$requestData['goPrice']?? 3000,//出行价格
+                'dayPrice'=>$requestData['dayPrice'] ?? 5000,//日租价格
+                'dayDiscount'=>$requestData['dayDiscount'] ?? 10,//日租折扣
+                'goPrice'=>$requestData['goPrice'] ?? 3000,//出行价格
                 'goDiscount'=>$requestData['goDiscount'] ?? 10,//出行折扣
                 'kilPrice'=>$requestData['kilPrice'] ?? 20.0,//每公里价格
                 'carNum'=>$requestData['carNum'] ?? 20,//库存剩余
@@ -175,15 +175,17 @@ class AdminController extends Index
 
             if ($res==true)
             {
+                $insertId=$obj->mysqlClient()->insert_id;
                 $code=200;
                 $msg=null;
             }else
             {
+                $insertId=null;
                 $code=201;
                 $msg='数据入库错误';
             }
 
-            $this->writeJson($code,[],$msg);
+            $this->writeJson($code,$insertId,$msg);
         }
 
         Manager::getInstance()->get('cars')->recycleObj($obj);
