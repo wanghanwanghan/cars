@@ -34,20 +34,17 @@ class AdminController extends Index
     {
         $req=$this->request()->getRequestParam();
 
-
-
-
         try
         {
             $obj=Manager::getInstance()->get('cars')->getObj();
 
             $res=$obj->queryBuilder()
-                ->fields('id,pid,name')
-                ->get('china_area');
+                ->where('username',$req['username'])
+                ->get('admin_users',1);
 
             $res=$obj->execBuilder();
 
-            var_dump($res);
+            $res=current($res);
 
         }catch (\Throwable $e)
         {
@@ -57,21 +54,13 @@ class AdminController extends Index
             Manager::getInstance()->get('cars')->recycleObj($obj);
         }
 
-        $tmp=[];
-        control::traverseMenu($res,$tmp);
-
-        $this->writeJson(200,$tmp);
-
-
-
-
-
-
-
-
-
-
-
+        if ($req['password']==$res['password'])
+        {
+            $this->writeJson(200,$res);
+        }else
+        {
+            $this->writeJson(201,[]);
+        }
 
         return true;
     }
@@ -137,29 +126,64 @@ class AdminController extends Index
             $table->colVarChar('carLicenseType')->setColumnLimit(50)->setDefaultValue('');
         });
 
+        //车行信息表
+        $sql[]=DDLBuilder::table('carBelong',function (Table $table)
+        {
+            $table->setTableComment('车行信息表')->setTableEngine(Engine::INNODB)->setTableCharset(Character::UTF8MB4_GENERAL_CI);
+            $table->colInt('id',11)->setColumnComment('主键')->setIsAutoIncrement()->setIsUnsigned()->setIsPrimaryKey();
+            $table->colVarChar('name')->setColumnLimit(100)->setColumnComment('车行名称');
+            $table->colVarChar('lng')->setColumnLimit(50)->setColumnComment('经纬度');
+            $table->colVarChar('lat')->setColumnLimit(50)->setColumnComment('经纬度');
+            $table->colVarChar('geo')->setColumnLimit(50)->setColumnComment('geo');
+            $table->colVarChar('address')->setColumnLimit(255)->setColumnComment('地址');
+            $table->colVarChar('tel')->setColumnLimit(50)->setColumnComment('座机');
+            $table->colVarChar('phone')->setColumnLimit(50)->setColumnComment('手机');
+            $table->colVarChar('open')->setColumnLimit(50)->setColumnComment('开门时间');
+            $table->colVarChar('close')->setColumnLimit(50)->setColumnComment('打烊时间');
+        });
+
         //车辆信息表
-        $sql[]=DDLBuilder::table('info',function (Table $table)
+        $sql[]=DDLBuilder::table('carInfo',function (Table $table)
         {
             $table->setTableComment('车辆信息表')->setTableEngine(Engine::INNODB)->setTableCharset(Character::UTF8MB4_GENERAL_CI);
-            $table->colInt('id',11)->setColumnComment('主键')->setIsAutoIncrement()->setIsUnsigned()->setIsPrimaryKey();
-            $table->colVarChar('brand')->setColumnLimit(50)->setDefaultValue('')->setColumnComment('品牌');
-            $table->colVarChar('type')->setColumnLimit(50)->setDefaultValue('')->setColumnComment('类型');
-            $table->colVarChar('label')->setColumnLimit(100)->setDefaultValue('')->setColumnComment('标签');
-            $table->colVarChar('name')->setColumnLimit(50)->setDefaultValue('')->setColumnComment('型号');
-            $table->colInt('price',11)->setIsUnsigned()->setDefaultValue(0)->setColumnComment('价格');
-            $table->colDecimal('km_ext',5,2)->setIsUnsigned()->setDefaultValue(1)->setColumnComment('公里系数');
-            $table->colInt('forfeitPrice',11)->setIsUnsigned()->setDefaultValue(0)->setColumnComment('违章押金');
-            $table->colInt('damagePrice',11)->setIsUnsigned()->setDefaultValue(0)->setColumnComment('车损押金');
-            $table->colVarChar('desc',255)->setDefaultValue('')->setColumnComment('描述');
-            $table->colVarChar('license',50)->setDefaultValue('')->setColumnComment('车牌照');
-            $table->colInt('level',11)->setIsUnsigned()->setDefaultValue(0)->setColumnComment('权重');
-            $table->colInt('hot',11)->setIsUnsigned()->setDefaultValue(0)->setColumnComment('热度');
-            $table->colVarChar('city')->setColumnLimit(50)->setDefaultValue('北京')->setColumnComment('所属城市');
-
-
-
-
+            $table->colInt('id',11)->setIsAutoIncrement()->setIsUnsigned()->setColumnComment('主键')->setIsPrimaryKey();
+            $table->colInt('carType')->setIsUnsigned()->setColumnComment('车辆类型表id');
+            $table->colInt('carBrand')->setIsUnsigned()->setColumnComment('车辆品牌表id');
+            $table->colVarChar('carModel')->setColumnLimit(50)->setColumnComment('车辆型号');
+            $table->colTinyInt('engine')->setIsUnsigned()->setColumnComment('排量');
+            $table->colInt('year')->setIsUnsigned()->setColumnComment('年份');
+            $table->colInt('carLicenseType')->setIsUnsigned()->setColumnComment('车辆牌照类型表id');
+            $table->colInt('carBelongCity')->setIsUnsigned()->setColumnComment('城市表id');
+            $table->colVarChar('operateType')->setColumnLimit(50)->setColumnComment('操作模式');
+            $table->colTinyInt('seatNum')->setIsUnsigned()->setColumnComment('座椅个数');
+            $table->colVarChar('driveType')->setColumnLimit(50)->setColumnComment('驱动模式');
+            $table->colVarChar('isRoadster')->setColumnLimit(50)->setColumnComment('是否敞篷');
+            $table->colVarChar('carColor')->setColumnLimit(50)->setColumnComment('外观颜色');
+            $table->colVarChar('insideColor')->setColumnLimit(50)->setColumnComment('内饰颜色');
+            $table->colInt('dayPrice')->setIsUnsigned()->setColumnComment('日租价格');
+            $table->colInt('dayDiscount')->setIsUnsigned()->setColumnComment('日租折扣');
+            $table->colInt('goPrice')->setIsUnsigned()->setColumnComment('出行价格');
+            $table->colInt('goDiscount')->setIsUnsigned()->setColumnComment('出行折扣');
+            $table->colDecimal('kilPrice',5,2)->setIsUnsigned()->setColumnComment('每公里价格');
+            $table->colInt('carNun')->setIsUnsigned()->setColumnComment('车辆数量');
+            $table->colInt('carBelong')->setIsUnsigned()->setColumnComment('车行信息表id');
+            $table->colInt('damagePrice')->setIsUnsigned()->setColumnComment('车损押金');
+            $table->colInt('forfeitPrice')->setIsUnsigned()->setColumnComment('违章押金');
+            $table->colVarChar('isActivities')->setColumnLimit(50)->setColumnComment('是否参与活动');
+            $table->colInt('rentMin')->setIsUnsigned()->setColumnComment('最短天数');
+            $table->colInt('rentMax')->setIsUnsigned()->setColumnComment('最长天数');
         });
+
+        //车辆图片表
+        $sql[]=DDLBuilder::table('carImage',function (Table $table)
+        {
+            $table->setTableComment('车辆图片表')->setTableEngine(Engine::INNODB)->setTableCharset(Character::UTF8MB4_GENERAL_CI);
+            $table->colInt('id',11)->setIsAutoIncrement()->setIsUnsigned()->setColumnComment('主键')->setIsPrimaryKey();
+            $table->colInt('cid')->setIsUnsigned()->setColumnComment('车辆主键');
+            $table->colVarChar('imageUrl')->setColumnLimit(255)->setColumnComment('图片地址');
+        });
+
+
 
 
 
