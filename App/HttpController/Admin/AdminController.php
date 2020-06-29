@@ -192,7 +192,7 @@ class AdminController extends Index
                 $msg='数据入库错误';
             }
 
-            $this->writeJson($code,[json_decode($images),true],$msg);
+            $this->writeJson($code,[json_decode($images,true)],$msg);
         }
 
         Manager::getInstance()->get('cars')->recycleObj($obj);
