@@ -168,8 +168,10 @@ class AdminController extends Index
             ];
 
             $obj->queryBuilder()->insert('carInfo',$data);
+
             $res=$obj->execBuilder();
-            $obj->mysqlClient()->insert_id;
+
+            $obj->insert_id;
 
             $this->writeJson(200,[$res,$obj]);
         }
