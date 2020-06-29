@@ -129,6 +129,8 @@ class AdminController extends Index
                 'carBelong'=>$carBelong,
             ]);
 
+            var_dump(time());
+
         }else
         {
             //post是录入车辆信息
