@@ -171,7 +171,28 @@ class AdminController extends Index
 
             $res=$obj->execBuilder();
 
-            $this->writeJson(200,[$res,$obj->mysqlClient()->insert_id]);
+            if ($res==true)
+            {
+                $insertId=$obj->mysqlClient()->insert_id;
+
+                $images=$this->request()->getRequestParam('images');//图片地址
+
+
+
+
+
+
+
+
+                $code=200;
+                $msg=null;
+            }else
+            {
+                $code=201;
+                $msg='数据入库错误';
+            }
+
+            $this->writeJson($code,[$images],$msg);
         }
 
         Manager::getInstance()->get('cars')->recycleObj($obj);
