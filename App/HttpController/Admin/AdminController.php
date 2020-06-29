@@ -112,17 +112,22 @@ class AdminController extends Index
 
             $obj->queryBuilder()->get('china_area');
             $china_area=$obj->execBuilder();
+            $tmp=[];
+            control::traverseMenu($china_area,$tmp);
+            $china_area=$tmp;
 
             $obj->queryBuilder()->get('carBelong');
             $carBelong=$obj->execBuilder();
 
-
-
-
-
-
-
             Manager::getInstance()->get('cars')->recycleObj($obj);
+
+            $this->writeJson(200,[
+                'carType'=>$carType,
+                'carBrand'=>$carBrand,
+                'carLicenseType'=>$carLicenseType,
+                'china_area'=>$china_area,
+                'carBelong'=>$carBelong,
+            ]);
 
         }else
         {
@@ -132,8 +137,6 @@ class AdminController extends Index
 
 
         }
-
-        $this->writeJson(200,[$carType,$carBrand,$carLicenseType,$china_area,$carBelong]);
     }
 
 
