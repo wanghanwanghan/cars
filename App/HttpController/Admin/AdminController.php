@@ -9,7 +9,6 @@ use EasySwoole\DDL\Enum\Character;
 use EasySwoole\DDL\Enum\Engine;
 use EasySwoole\Pool\Manager;
 use wanghanwanghan\someUtils\control;
-use function Couchbase\defaultDecoder;
 
 class AdminController extends Index
 {
@@ -174,7 +173,7 @@ class AdminController extends Index
 
             if ($res==true)
             {
-                $insertId=[$obj->mysqlClient()->insert_id];
+                $insertId=$this->request()->getRequestParam();
                 $code=200;
                 $msg=null;
             }else
