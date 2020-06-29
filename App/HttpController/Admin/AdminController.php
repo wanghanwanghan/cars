@@ -138,56 +138,55 @@ class AdminController extends Index
         }else
         {
             //post是录入车辆信息
-//            $requestData=$this->json();
-//
-//            $data=[
-//                'images'=>$requestData['images'] ?? '无',//车辆图片
-//                'carType'=>$requestData['carType'] ?? 1,//车辆类型
-//                'carBrand'=>$requestData['carBrand'] ?? 1,//品牌
-//                'carModel'=>$requestData['carModel'] ?? '无',//型号
-//                'engine'=>$requestData['engine'] ?? 1.0,//排量
-//                'year'=>$requestData['year'] ?? 2020,//年份
-//                'carLicenseType'=>$requestData['carLicenseType'] ?? 1,//牌照
-//                'carBelongCity'=>$requestData['carBelongCity'] ?? 1,//所属城市
-//                'operateType'=>$requestData['carBelongCity'] ?? '自动挡',//操作模式
-//                'seatNum'=>$requestData['seatNum'] ?? 2,//座位个数
-//                'driveType'=>$requestData['driveType'] ?? '四驱',//驱动方式
-//                'isRoadster'=>$requestData['isRoadster'] ?? '否',//是否敞
-//                'carColor'=>$requestData['carColor'] ?? '钻石白',//外观颜色
-//                'insideColor'=>$requestData['insideColor'] ?? '尊贵棕',//内饰颜色
-//                'dayPrice'=>$requestData['dayPrice'] ?? 5000,//日租价格
-//                'dayDiscount'=>$requestData['dayDiscount'] ?? 10,//日租折扣
-//                'goPrice'=>$requestData['goPrice'] ?? 3000,//出行价格
-//                'goDiscount'=>$requestData['goDiscount'] ?? 10,//出行折扣
-//                'kilPrice'=>$requestData['kilPrice'] ?? 20.0,//每公里价格
-//                'carNum'=>$requestData['carNum'] ?? 20,//库存剩余
-//                'carBelong'=>$requestData['carBelong'] ?? 1,//所属车行
-//                'damagePrice'=>$requestData['damagePrice'] ?? 20000,//车损押金
-//                'forfeitPrice'=>$requestData['forfeitPrice'] ?? 2000,//违章押金
-//                'isActivities'=>$requestData['isActivities'] ?? '否',//是否参加活动
-//                'rentMin'=>$requestData['rentMin'] ?? 1,//最小天数
-//                'rentMax'=>$requestData['rentMax'] ?? 9999,//最大天数
-//            ];
-//
-//            $obj->queryBuilder()->insert('carInfo',$data);
-//
-//            $res=$obj->execBuilder();
+            $data=[
+                'images'=>$this->request()->getRequestParam('images') ?? '无',//车辆图片
+                'carType'=>$this->request()->getRequestParam('carType') ?? 1,//车辆类型
+                'carBrand'=>$this->request()->getRequestParam('carBrand') ?? 1,//品牌
+                'carModel'=>$this->request()->getRequestParam('carModel') ?? '无',//型号
+                'engine'=>$this->request()->getRequestParam('engine') ?? 1.0,//排量
+                'year'=>$this->request()->getRequestParam('year') ?? 2020,//年份
+                'carLicenseType'=>$this->request()->getRequestParam('carLicenseType') ?? 1,//牌照
+                'carBelongCity'=>$this->request()->getRequestParam('carBelongCity') ?? 1,//所属城市
+                'operateType'=>$this->request()->getRequestParam('carBelongCity') ?? '自动挡',//操作模式
+                'seatNum'=>$this->request()->getRequestParam('seatNum') ?? 2,//座位个数
+                'driveType'=>$this->request()->getRequestParam('driveType') ?? '四驱',//驱动方式
+                'isRoadster'=>$this->request()->getRequestParam('isRoadster') ?? '否',//是否敞
+                'carColor'=>$this->request()->getRequestParam('carColor') ?? '钻石白',//外观颜色
+                'insideColor'=>$this->request()->getRequestParam('insideColor') ?? '尊贵棕',//内饰颜色
+                'dayPrice'=>$this->request()->getRequestParam('dayPrice') ?? 5000,//日租价格
+                'dayDiscount'=>$this->request()->getRequestParam('dayDiscount') ?? 10,//日租折扣
+                'goPrice'=>$this->request()->getRequestParam('goPrice') ?? 3000,//出行价格
+                'goDiscount'=>$this->request()->getRequestParam('goDiscount') ?? 10,//出行折扣
+                'kilPrice'=>$this->request()->getRequestParam('kilPrice') ?? 20.0,//每公里价格
+                'carNum'=>$this->request()->getRequestParam('carNum') ?? 20,//库存剩余
+                'carBelong'=>$this->request()->getRequestParam('carBelong') ?? 1,//所属车行
+                'damagePrice'=>$this->request()->getRequestParam('damagePrice') ?? 20000,//车损押金
+                'forfeitPrice'=>$this->request()->getRequestParam('forfeitPrice') ?? 2000,//违章押金
+                'isActivities'=>$this->request()->getRequestParam('isActivities') ?? '否',//是否参加活动
+                'rentMin'=>$this->request()->getRequestParam('rentMin') ?? 1,//最小天数
+                'rentMax'=>$this->request()->getRequestParam('rentMax') ?? 9999,//最大天数
+            ];
 
-            $res=0;
+            $obj->queryBuilder()->insert('carInfo',$data);
+
+            $res=$obj->execBuilder();
+
+            $caonima=[
+                $this->request()->getRequestParam(),
+                $this->json()
+            ];
 
             if ($res==true)
             {
-                $insertId=$obj->mysqlClient()->insert_id;
                 $code=200;
                 $msg=null;
             }else
             {
-                $insertId=null;
                 $code=201;
                 $msg='数据入库错误';
             }
 
-            $this->writeJson($code,$insertId,$msg);
+            $this->writeJson($code,$caonima,$msg);
         }
 
         Manager::getInstance()->get('cars')->recycleObj($obj);
@@ -268,7 +267,7 @@ class AdminController extends Index
             $table->colInt('goPrice')->setIsUnsigned()->setColumnComment('出行价格');
             $table->colInt('goDiscount')->setIsUnsigned()->setColumnComment('出行折扣');
             $table->colDecimal('kilPrice',5,2)->setIsUnsigned()->setColumnComment('每公里价格');
-            $table->colInt('carNum')->setIsUnsigned()->setColumnComment('车辆数量');
+            $table->colInt('carNun')->setIsUnsigned()->setColumnComment('车辆数量');
             $table->colInt('carBelong')->setIsUnsigned()->setColumnComment('车行信息表id');
             $table->colInt('damagePrice')->setIsUnsigned()->setColumnComment('车损押金');
             $table->colInt('forfeitPrice')->setIsUnsigned()->setColumnComment('违章押金');
