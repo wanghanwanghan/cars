@@ -179,7 +179,7 @@ class AdminController extends Index
                 $msg=null;
             }else
             {
-                $insertId=[];
+                $insertId=$this->request()->getRequestParam();
                 $code=201;
                 $msg='数据入库错误';
             }
