@@ -138,10 +138,14 @@ class AdminController extends Index
         }else
         {
             //post是录入车辆信息
+            //车辆类型
+            $carType=$this->request()->getRequestParam('username') ?? 1;
 
 
 
-            $this->writeJson(200,$this->request()->getRequestParam('username'));
+
+
+            $this->writeJson(200,[$carType]);
         }
 
         Manager::getInstance()->get('cars')->recycleObj($obj);
